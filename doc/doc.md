@@ -8,5 +8,8 @@
 Теория http://www.rotr.info/electronics/mcu/seven_segment.htm
 
 
-Распиновка (Вид сзади)
+## Распиновка (Вид сзади)
+
 ![Распиновка](https://img.mysku-st.ru/uploads/images/01/00/72/2014/09/28/6dc57e.jpg)
+
+![Подключение](http://www.rotr.info/electronics/mcu/img/7s_display_connect.png)
