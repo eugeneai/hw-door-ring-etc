@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:calendar-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
@@ -53,12 +54,12 @@ $EndComp
 $Comp
 L power:GND #PWR0102
 U 1 1 5CAA303F
-P 5100 1850
-F 0 "#PWR0102" H 5100 1600 50  0001 C CNN
-F 1 "GND" V 5105 1722 50  0000 R CNN
-F 2 "" H 5100 1850 50  0001 C CNN
-F 3 "" H 5100 1850 50  0001 C CNN
-	1    5100 1850
+P 5100 1950
+F 0 "#PWR0102" H 5100 1700 50  0001 C CNN
+F 1 "GND" V 5105 1822 50  0000 R CNN
+F 2 "" H 5100 1950 50  0001 C CNN
+F 3 "" H 5100 1950 50  0001 C CNN
+	1    5100 1950
 	0    1    1    0   
 $EndComp
 $Comp
@@ -162,12 +163,12 @@ $EndComp
 $Comp
 L power:+5V #PWR0108
 U 1 1 5CAB5CA1
-P 5600 2250
-F 0 "#PWR0108" H 5600 2100 50  0001 C CNN
-F 1 "+5V" V 5615 2378 50  0000 L CNN
-F 2 "" H 5600 2250 50  0001 C CNN
-F 3 "" H 5600 2250 50  0001 C CNN
-	1    5600 2250
+P 5600 1850
+F 0 "#PWR0108" H 5600 1700 50  0001 C CNN
+F 1 "+5V" V 5615 1978 50  0000 L CNN
+F 2 "" H 5600 1850 50  0001 C CNN
+F 3 "" H 5600 1850 50  0001 C CNN
+	1    5600 1850
 	0    1    1    0   
 $EndComp
 Text GLabel 4000 2200 2    50   Input ~ 0
@@ -178,7 +179,7 @@ Text GLabel 4000 1900 2    50   Input ~ 0
 SDA
 Text GLabel 4000 1800 2    50   Input ~ 0
 SCL
-Text GLabel 5100 1950 0    50   Input ~ 0
+Text GLabel 5600 2050 2    50   Input ~ 0
 T~INT
 Text GLabel 5100 2050 0    50   Input ~ 0
 TCLK
@@ -192,9 +193,9 @@ Text GLabel 3100 3650 0    50   Input ~ 0
 SCLK
 Text GLabel 3100 4550 0    50   Input ~ 0
 LOAD
-Text GLabel 5600 2050 2    50   Input ~ 0
+Text GLabel 5600 2250 2    50   Input ~ 0
 LOAD
-Text GLabel 5600 1850 2    50   Input ~ 0
+Text GLabel 5100 1850 0    50   Input ~ 0
 SCLK
 Text GLabel 5600 1950 2    50   Input ~ 0
 DIN
@@ -232,43 +233,43 @@ Text GLabel 4050 4750 2    50   Input ~ 0
 G
 Text GLabel 4050 4850 2    50   Input ~ 0
 DP
-Text GLabel 5100 3050 0    50   Input ~ 0
+Text GLabel 5100 3500 0    50   Input ~ 0
 D0
-Text GLabel 5100 3150 0    50   Input ~ 0
+Text GLabel 5100 3100 0    50   Input ~ 0
 D1
-Text GLabel 5100 3250 0    50   Input ~ 0
+Text GLabel 5100 3300 0    50   Input ~ 0
 D2
-Text GLabel 5100 3350 0    50   Input ~ 0
+Text GLabel 5600 3300 2    50   Input ~ 0
 D3
-Text GLabel 5100 3450 0    50   Input ~ 0
+Text GLabel 5100 3400 0    50   Input ~ 0
 D4
-Text GLabel 5100 3550 0    50   Input ~ 0
+Text GLabel 5600 3200 2    50   Input ~ 0
 D5
-Text GLabel 5600 3550 2    50   Input ~ 0
+Text GLabel 5600 3400 2    50   Input ~ 0
 D6
-Text GLabel 5600 3450 2    50   Input ~ 0
+Text GLabel 5100 3200 0    50   Input ~ 0
 D7
-Text GLabel 5600 3350 2    50   Input ~ 0
+Text GLabel 5600 3500 2    50   Input ~ 0
 DOUT
-Text GLabel 5100 4450 0    50   Input ~ 0
-A
 Text GLabel 5100 4550 0    50   Input ~ 0
-B
+A
 Text GLabel 5100 4650 0    50   Input ~ 0
-C
+B
 Text GLabel 5100 4750 0    50   Input ~ 0
-D
+C
 Text GLabel 5100 4850 0    50   Input ~ 0
-E
+D
 Text GLabel 5600 4850 2    50   Input ~ 0
+E
+Text GLabel 5600 4650 2    50   Input ~ 0
 F
 Text GLabel 5600 4750 2    50   Input ~ 0
 G
-Text GLabel 5600 4650 2    50   Input ~ 0
+Text GLabel 5100 4450 0    50   Input ~ 0
 DP
-Text GLabel 5600 3050 2    50   Input ~ 0
+Text GLabel 5100 3000 0    50   Input ~ 0
 LOAD
-Text GLabel 5600 3150 2    50   Input ~ 0
+Text GLabel 5600 3000 2    50   Input ~ 0
 SCLK
 $Comp
 L Connector_Generic:Conn_02x05_Odd_Even J1
@@ -317,12 +318,12 @@ $EndComp
 $Comp
 L Connector_Generic:Conn_02x06_Odd_Even J2
 U 1 1 5CAE33A5
-P 5300 3250
-F 0 "J2" H 5350 3667 50  0000 C CNN
-F 1 "Conn_02x06_Odd_Even" H 5350 3576 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x06_P2.54mm_Vertical" H 5300 3250 50  0001 C CNN
-F 3 "~" H 5300 3250 50  0001 C CNN
-	1    5300 3250
+P 5300 3200
+F 0 "J2" H 5350 3617 50  0000 C CNN
+F 1 "Conn_02x06_Odd_Even" H 5350 3526 50  0000 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x06_P2.54mm_Vertical" H 5300 3200 50  0001 C CNN
+F 3 "~" H 5300 3200 50  0001 C CNN
+	1    5300 3200
 	1    0    0    -1  
 $EndComp
 $Comp
