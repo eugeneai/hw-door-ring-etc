@@ -163,12 +163,12 @@ $EndComp
 $Comp
 L power:+5V #PWR0108
 U 1 1 5CAB5CA1
-P 5600 1850
-F 0 "#PWR0108" H 5600 1700 50  0001 C CNN
-F 1 "+5V" V 5615 1978 50  0000 L CNN
-F 2 "" H 5600 1850 50  0001 C CNN
-F 3 "" H 5600 1850 50  0001 C CNN
-	1    5600 1850
+P 5750 1850
+F 0 "#PWR0108" H 5750 1700 50  0001 C CNN
+F 1 "+5V" V 5765 1978 50  0000 L CNN
+F 2 "" H 5750 1850 50  0001 C CNN
+F 3 "" H 5750 1850 50  0001 C CNN
+	1    5750 1850
 	0    1    1    0   
 $EndComp
 Text GLabel 4000 2200 2    50   Input ~ 0
@@ -179,7 +179,7 @@ Text GLabel 4000 1900 2    50   Input ~ 0
 SDA
 Text GLabel 4000 1800 2    50   Input ~ 0
 SCL
-Text GLabel 5600 2050 2    50   Input ~ 0
+Text GLabel 5750 2050 2    50   Input ~ 0
 T~INT
 Text GLabel 5100 2050 0    50   Input ~ 0
 TCLK
@@ -193,11 +193,11 @@ Text GLabel 3100 3650 0    50   Input ~ 0
 SCLK
 Text GLabel 3100 4550 0    50   Input ~ 0
 LOAD
-Text GLabel 5600 2250 2    50   Input ~ 0
+Text GLabel 5750 2250 2    50   Input ~ 0
 LOAD
 Text GLabel 5100 1850 0    50   Input ~ 0
 SCLK
-Text GLabel 5600 1950 2    50   Input ~ 0
+Text GLabel 5750 1950 2    50   Input ~ 0
 DIN
 Text GLabel 4050 3250 2    50   Input ~ 0
 DOUT
@@ -239,17 +239,17 @@ Text GLabel 5100 3100 0    50   Input ~ 0
 D1
 Text GLabel 5100 3300 0    50   Input ~ 0
 D2
-Text GLabel 5600 3300 2    50   Input ~ 0
+Text GLabel 5750 3300 2    50   Input ~ 0
 D3
 Text GLabel 5100 3400 0    50   Input ~ 0
 D4
-Text GLabel 5600 3200 2    50   Input ~ 0
+Text GLabel 5750 3200 2    50   Input ~ 0
 D5
-Text GLabel 5600 3400 2    50   Input ~ 0
+Text GLabel 5750 3400 2    50   Input ~ 0
 D6
 Text GLabel 5100 3200 0    50   Input ~ 0
 D7
-Text GLabel 5600 3500 2    50   Input ~ 0
+Text GLabel 5750 3500 2    50   Input ~ 0
 DOUT
 Text GLabel 5100 4550 0    50   Input ~ 0
 A
@@ -259,72 +259,39 @@ Text GLabel 5100 4750 0    50   Input ~ 0
 C
 Text GLabel 5100 4850 0    50   Input ~ 0
 D
-Text GLabel 5600 4850 2    50   Input ~ 0
+Text GLabel 5800 4850 2    50   Input ~ 0
 E
-Text GLabel 5600 4650 2    50   Input ~ 0
+Text GLabel 5800 4650 2    50   Input ~ 0
 F
-Text GLabel 5600 4750 2    50   Input ~ 0
+Text GLabel 5800 4750 2    50   Input ~ 0
 G
 Text GLabel 5100 4450 0    50   Input ~ 0
 DP
 Text GLabel 5100 3000 0    50   Input ~ 0
 LOAD
-Text GLabel 5600 3000 2    50   Input ~ 0
+Text GLabel 5750 3000 2    50   Input ~ 0
 SCLK
-$Comp
-L Connector_Generic:Conn_02x05_Odd_Even J1
-U 1 1 5CAD98A1
-P 5300 2050
-F 0 "J1" H 5350 2467 50  0000 C CNN
-F 1 "INP" H 5350 2376 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x05_P2.54mm_Vertical" H 5300 2050 50  0001 C CNN
-F 3 "~" H 5300 2050 50  0001 C CNN
-	1    5300 2050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x05_Odd_Even J3
-U 1 1 5CADE94C
-P 5300 4650
-F 0 "J3" H 5350 5067 50  0000 C CNN
-F 1 "Conn_02x05_Odd_Even" H 5350 4976 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x05_P2.54mm_Vertical" H 5300 4650 50  0001 C CNN
-F 3 "~" H 5300 4650 50  0001 C CNN
-	1    5300 4650
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR0109
 U 1 1 5CADF666
-P 5600 4550
-F 0 "#PWR0109" H 5600 4400 50  0001 C CNN
-F 1 "+5V" V 5615 4678 50  0000 L CNN
-F 2 "" H 5600 4550 50  0001 C CNN
-F 3 "" H 5600 4550 50  0001 C CNN
-	1    5600 4550
+P 5800 4550
+F 0 "#PWR0109" H 5800 4400 50  0001 C CNN
+F 1 "+5V" V 5815 4678 50  0000 L CNN
+F 2 "" H 5800 4550 50  0001 C CNN
+F 3 "" H 5800 4550 50  0001 C CNN
+	1    5800 4550
 	0    1    1    0   
 $EndComp
 $Comp
 L power:GND #PWR0110
 U 1 1 5CAE018A
-P 5600 4450
-F 0 "#PWR0110" H 5600 4200 50  0001 C CNN
-F 1 "GND" V 5605 4322 50  0000 R CNN
-F 2 "" H 5600 4450 50  0001 C CNN
-F 3 "" H 5600 4450 50  0001 C CNN
-	1    5600 4450
+P 5800 4450
+F 0 "#PWR0110" H 5800 4200 50  0001 C CNN
+F 1 "GND" V 5805 4322 50  0000 R CNN
+F 2 "" H 5800 4450 50  0001 C CNN
+F 3 "" H 5800 4450 50  0001 C CNN
+	1    5800 4450
 	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector_Generic:Conn_02x06_Odd_Even J2
-U 1 1 5CAE33A5
-P 5300 3200
-F 0 "J2" H 5350 3617 50  0000 C CNN
-F 1 "Conn_02x06_Odd_Even" H 5350 3526 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x06_P2.54mm_Vertical" H 5300 3200 50  0001 C CNN
-F 3 "~" H 5300 3200 50  0001 C CNN
-	1    5300 3200
-	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C2
@@ -390,6 +357,336 @@ F 1 "+5V" H 1865 2873 50  0000 C CNN
 F 2 "" H 1850 2700 50  0001 C CNN
 F 3 "" H 1850 2700 50  0001 C CNN
 	1    1850 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J1
+U 1 1 5CB9CED1
+P 5300 1850
+F 0 "J1" H 5272 1782 50  0000 R CNN
+F 1 "J" H 5272 1873 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 1850 50  0001 C CNN
+F 3 "~" H 5300 1850 50  0001 C CNN
+	1    5300 1850
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J2
+U 1 1 5CBA4584
+P 5300 1950
+F 0 "J2" H 5272 1882 50  0000 R CNN
+F 1 "J" H 5272 1973 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 1950 50  0001 C CNN
+F 3 "~" H 5300 1950 50  0001 C CNN
+	1    5300 1950
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J3
+U 1 1 5CBA46EE
+P 5300 2050
+F 0 "J3" H 5272 1982 50  0000 R CNN
+F 1 "J" H 5272 2073 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 2050 50  0001 C CNN
+F 3 "~" H 5300 2050 50  0001 C CNN
+	1    5300 2050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J4
+U 1 1 5CBA47A6
+P 5300 2150
+F 0 "J4" H 5272 2082 50  0000 R CNN
+F 1 "J" H 5272 2173 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 2150 50  0001 C CNN
+F 3 "~" H 5300 2150 50  0001 C CNN
+	1    5300 2150
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J5
+U 1 1 5CBA4969
+P 5300 2250
+F 0 "J5" H 5272 2182 50  0000 R CNN
+F 1 "J" H 5272 2273 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 2250 50  0001 C CNN
+F 3 "~" H 5300 2250 50  0001 C CNN
+	1    5300 2250
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J6
+U 1 1 5CBA4AAE
+P 5300 3000
+F 0 "J6" H 5272 2932 50  0000 R CNN
+F 1 "J" H 5272 3023 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 3000 50  0001 C CNN
+F 3 "~" H 5300 3000 50  0001 C CNN
+	1    5300 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J7
+U 1 1 5CBA4EED
+P 5300 3100
+F 0 "J7" H 5272 3032 50  0000 R CNN
+F 1 "J" H 5272 3123 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 3100 50  0001 C CNN
+F 3 "~" H 5300 3100 50  0001 C CNN
+	1    5300 3100
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J8
+U 1 1 5CBA5080
+P 5300 3200
+F 0 "J8" H 5272 3132 50  0000 R CNN
+F 1 "J" H 5272 3223 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 3200 50  0001 C CNN
+F 3 "~" H 5300 3200 50  0001 C CNN
+	1    5300 3200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J9
+U 1 1 5CBA5249
+P 5300 3300
+F 0 "J9" H 5272 3232 50  0000 R CNN
+F 1 "J" H 5272 3323 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 3300 50  0001 C CNN
+F 3 "~" H 5300 3300 50  0001 C CNN
+	1    5300 3300
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J10
+U 1 1 5CBA54AA
+P 5300 3400
+F 0 "J10" H 5272 3332 50  0000 R CNN
+F 1 "J" H 5272 3423 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 3400 50  0001 C CNN
+F 3 "~" H 5300 3400 50  0001 C CNN
+	1    5300 3400
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J11
+U 1 1 5CBA560F
+P 5300 3500
+F 0 "J11" H 5272 3432 50  0000 R CNN
+F 1 "J" H 5272 3523 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 3500 50  0001 C CNN
+F 3 "~" H 5300 3500 50  0001 C CNN
+	1    5300 3500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J12
+U 1 1 5CBA57DD
+P 5300 4450
+F 0 "J12" H 5272 4382 50  0000 R CNN
+F 1 "J" H 5272 4473 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 4450 50  0001 C CNN
+F 3 "~" H 5300 4450 50  0001 C CNN
+	1    5300 4450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J13
+U 1 1 5CBA5CD4
+P 5300 4550
+F 0 "J13" H 5272 4482 50  0000 R CNN
+F 1 "J" H 5272 4573 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 4550 50  0001 C CNN
+F 3 "~" H 5300 4550 50  0001 C CNN
+	1    5300 4550
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J14
+U 1 1 5CBA5E58
+P 5300 4650
+F 0 "J14" H 5272 4582 50  0000 R CNN
+F 1 "J" H 5272 4673 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 4650 50  0001 C CNN
+F 3 "~" H 5300 4650 50  0001 C CNN
+	1    5300 4650
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J15
+U 1 1 5CBA614D
+P 5300 4750
+F 0 "J15" H 5272 4682 50  0000 R CNN
+F 1 "J" H 5272 4773 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 4750 50  0001 C CNN
+F 3 "~" H 5300 4750 50  0001 C CNN
+	1    5300 4750
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J16
+U 1 1 5CBA62D6
+P 5300 4850
+F 0 "J16" H 5272 4782 50  0000 R CNN
+F 1 "J" H 5272 4873 50  0000 R CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5300 4850 50  0001 C CNN
+F 3 "~" H 5300 4850 50  0001 C CNN
+	1    5300 4850
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J30
+U 1 1 5CBA64F7
+P 5600 4850
+F 0 "J30" H 5708 5031 50  0000 C CNN
+F 1 "J" H 5708 4940 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5600 4850 50  0001 C CNN
+F 3 "~" H 5600 4850 50  0001 C CNN
+	1    5600 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J29
+U 1 1 5CBA694B
+P 5600 4750
+F 0 "J29" H 5708 4931 50  0000 C CNN
+F 1 "J" H 5708 4840 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5600 4750 50  0001 C CNN
+F 3 "~" H 5600 4750 50  0001 C CNN
+	1    5600 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J28
+U 1 1 5CBA6ADF
+P 5600 4650
+F 0 "J28" H 5708 4831 50  0000 C CNN
+F 1 "J" H 5708 4740 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5600 4650 50  0001 C CNN
+F 3 "~" H 5600 4650 50  0001 C CNN
+	1    5600 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J27
+U 1 1 5CBA6C53
+P 5600 4550
+F 0 "J27" H 5708 4731 50  0000 C CNN
+F 1 "J" H 5708 4640 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5600 4550 50  0001 C CNN
+F 3 "~" H 5600 4550 50  0001 C CNN
+	1    5600 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J26
+U 1 1 5CBA6DCD
+P 5600 4450
+F 0 "J26" H 5708 4631 50  0000 C CNN
+F 1 "J" H 5708 4540 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5600 4450 50  0001 C CNN
+F 3 "~" H 5600 4450 50  0001 C CNN
+	1    5600 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J25
+U 1 1 5CBA6F6D
+P 5550 3500
+F 0 "J25" H 5658 3681 50  0000 C CNN
+F 1 "J" H 5658 3590 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 3500 50  0001 C CNN
+F 3 "~" H 5550 3500 50  0001 C CNN
+	1    5550 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J24
+U 1 1 5CBA7443
+P 5550 3400
+F 0 "J24" H 5658 3581 50  0000 C CNN
+F 1 "J" H 5658 3490 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 3400 50  0001 C CNN
+F 3 "~" H 5550 3400 50  0001 C CNN
+	1    5550 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J23
+U 1 1 5CBA7578
+P 5550 3300
+F 0 "J23" H 5658 3481 50  0000 C CNN
+F 1 "J" H 5658 3390 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 3300 50  0001 C CNN
+F 3 "~" H 5550 3300 50  0001 C CNN
+	1    5550 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J22
+U 1 1 5CBA76CC
+P 5550 3200
+F 0 "J22" H 5658 3381 50  0000 C CNN
+F 1 "J" H 5658 3290 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 3200 50  0001 C CNN
+F 3 "~" H 5550 3200 50  0001 C CNN
+	1    5550 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J21
+U 1 1 5CBA7855
+P 5550 3000
+F 0 "J21" H 5658 3181 50  0000 C CNN
+F 1 "J" H 5658 3090 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 3000 50  0001 C CNN
+F 3 "~" H 5550 3000 50  0001 C CNN
+	1    5550 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J17
+U 1 1 5CBA7C65
+P 5550 1850
+F 0 "J17" H 5658 2031 50  0000 C CNN
+F 1 "J" H 5658 1940 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 1850 50  0001 C CNN
+F 3 "~" H 5550 1850 50  0001 C CNN
+	1    5550 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J18
+U 1 1 5CBA8233
+P 5550 1950
+F 0 "J18" H 5658 2131 50  0000 C CNN
+F 1 "J" H 5658 2040 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 1950 50  0001 C CNN
+F 3 "~" H 5550 1950 50  0001 C CNN
+	1    5550 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J19
+U 1 1 5CBA8519
+P 5550 2050
+F 0 "J19" H 5658 2231 50  0000 C CNN
+F 1 "J" H 5658 2140 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 2050 50  0001 C CNN
+F 3 "~" H 5550 2050 50  0001 C CNN
+	1    5550 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Male J20
+U 1 1 5CBA8796
+P 5550 2250
+F 0 "J20" H 5658 2431 50  0000 C CNN
+F 1 "J" H 5658 2340 50  0000 C CNN
+F 2 "Connector_Wire:SolderWirePad_1x01_Drill0.8mm" H 5550 2250 50  0001 C CNN
+F 3 "~" H 5550 2250 50  0001 C CNN
+	1    5550 2250
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
