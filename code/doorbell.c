@@ -20,6 +20,9 @@
 
 char mystr[]="Atmega8 UART ready!\n";
 char rc;
+unsigned int playing = 0, intensity=0;
+
+int LED7test(void);
 
 /* void lampOFF() */
 /* { */
@@ -91,8 +94,11 @@ unsigned int get_part() {
 void timer_tick() {
   if ((PINB & (1<<BUSY)) == 0) {
     PORTB ^= 1 << LED;
+    playing = 1;
   } else {
     PORTB &=~(1<<LED);
+    playing = 0;
+    //LED7test();
   }
 }
 
@@ -127,11 +133,13 @@ void timer_init() {
 #define DELAY 1000
 
 int main() {
+
   uart_init();
   timer_init();
 
-  stdout = &uart_output;
-  stdin  = &uart_input;
+  // stdout = &uart_output;
+  // stdin  = &uart_input;
+
   // TEST
   //DDRL  = 0x00;
   //PORTL = 0x00;
@@ -155,7 +163,186 @@ int main() {
     /* printf("\n"); */
     /* pp=pulses.all; */
     /* _delay_ms(DELAY); */
+    if (! playing)
+      LED7test();
+
     sleep_mode();
   }
   return 0;
+}
+
+
+// Taken from https://gist.githubusercontent.com/adnbr/2352797/raw/b5e33d85167e6b562a6b4720921a2955eb3cc631/max7219-basic.c
+
+/* MAX7219 Interaction Code
+ * ---------------------------
+ * For more information see
+ * http://www.adnbr.co.uk/articles/max7219-and-7-segment-displays
+ *
+ * 668 bytes - ATmega168 - 16MHz
+ */
+
+// 16MHz clock
+// #define F_CPU 16000000UL
+
+// Outputs, pin definitions
+#define PIN_SCK                   PORTB5
+#define PIN_MOSI                  PORTB3
+#define PIN_SS                    PORTB2
+
+#define ON                        1
+#define OFF                       0
+
+#define MAX7219_LOAD1             PORTB |= (1<<PIN_SS)
+#define MAX7219_LOAD0             PORTB &= ~(1<<PIN_SS)
+
+#define MAX7219_MODE_DECODE       0x09
+#define MAX7219_MODE_INTENSITY    0x0A
+#define MAX7219_MODE_SCAN_LIMIT   0x0B
+#define MAX7219_MODE_POWER        0x0C
+#define MAX7219_MODE_TEST         0x0F
+#define MAX7219_MODE_NOOP         0x00
+
+// I only have 3 digits, no point having the
+// rest. You could use more though.
+#define MAX7219_DIGIT0            0x01
+#define MAX7219_DIGIT1            0x02
+#define MAX7219_DIGIT2            0x03
+
+#define MAX7219_CHAR_BLANK        0xF
+#define MAX7219_CHAR_NEGATIVE     0xA
+
+// #include <avr/io.h>
+// #include <util/delay.h>
+
+char digitsInUse = 8;
+
+unsigned int D[8] = {0,1,2,3,4,5,6,7};
+
+void spiSendByte (char databyte)
+{
+    // Copy data into the SPI data register
+    SPDR = databyte;
+    // Wait until transfer is complete
+    while (!(SPSR & (1 << SPIF)));
+}
+
+void MAX7219_writeData(char data_register, char data)
+{
+    MAX7219_LOAD0;
+        // Send the register where the data will be stored
+        spiSendByte(data_register);
+        // Send the data to be stored
+        spiSendByte(data);
+    MAX7219_LOAD1;
+}
+
+void MAX7219_clearDisplay()
+{
+    char i = digitsInUse;
+    // Loop until 0, but don't run for zero
+    do {
+        // Set each display in use to blank
+        MAX7219_writeData(i, MAX7219_CHAR_BLANK);
+    } while (--i);
+}
+
+void MAX7219_clearDisplay0()
+{
+    char i = digitsInUse;
+    // Loop until 0, but don't run for zero
+    do {
+        // Set each display in use to blank
+        MAX7219_writeData(i, 0);
+    } while (--i);
+}
+
+void MAX7219_displayDigits(unsigned int num) {
+  for (int i=0; i<num; i++) {
+    MAX7219_writeData(i+MAX7219_DIGIT0, D[i]);
+  }
+}
+
+void MAX7219_displayNumber(volatile long number)
+{
+    char negative = 0;
+
+    // Convert negative to positive.
+    // Keep a record that it was negative so we can
+    // sign it again on the display.
+    if (number < 0) {
+        negative = 1;
+        number *= -1;
+    }
+
+    MAX7219_clearDisplay();
+
+    // If number = 0, only show one zero then exit
+    if (number == 0) {
+        MAX7219_writeData(MAX7219_DIGIT0, 0);
+        return;
+    }
+
+    // Initialization to 0 required in this case,
+    // does not work without it. Not sure why.
+    char i = MAX7219_DIGIT0;
+
+    // Loop until number is 0.
+    do {
+        MAX7219_writeData(++i, number % 10);
+        // Actually divide by 10 now.
+        number /= 10;
+    } while (number);
+
+    // Bear in mind that if you only have three digits, and
+    // try to display something like "-256" all that will display
+    // will be "256" because it needs an extra fourth digit to
+    // display the sign.
+    if (negative) {
+        MAX7219_writeData(i, MAX7219_CHAR_NEGATIVE);
+    }
+}
+
+int LED7test(void)
+{
+    // SCK MOSI CS/LOAD/SS
+    DDRB |= (1 << PIN_SCK) | (1 << PIN_MOSI) | (1 << PIN_SS);
+
+    // SPI Enable, Master mode
+    SPCR |= (1 << SPE) | (1 << MSTR) | (1<<SPI2X) ;  // | (1<<SPR1) | (1<<SPR0);;
+
+    MAX7219_writeData(MAX7219_MODE_TEST, OFF);
+    MAX7219_writeData(MAX7219_MODE_POWER, ON);
+
+    // Decode mode to "Font Code-B"
+    // MAX7219_writeData(MAX7219_MODE_DECODE, 0xFF);
+    MAX7219_writeData(MAX7219_MODE_DECODE, 0x00);
+
+    // Scan limit runs from 0.
+    MAX7219_writeData(MAX7219_MODE_SCAN_LIMIT, digitsInUse - 1);
+    MAX7219_writeData(MAX7219_MODE_INTENSITY, intensity);
+
+    /* int i = 99999999; */
+    /* while(1) */
+    /* { */
+    /*     MAX7219_displayNumber(--i); */
+    /*     // _delay_ms(10); */
+
+    /*     if (i == 0) { */
+    /*       //i = 999; */
+    /*       break; */
+    /*     } */
+    /* } */
+    for (int i = 0; i<10; i++) {
+      _delay_ms(30);
+      MAX7219_displayDigits(digitsInUse);
+      int i;
+      for (i=0; i<digitsInUse-1; i++) {
+        D[i]=D[i+1];
+      }
+      // D[digitsInUse-1]++;
+      D[digitsInUse-1] = ~(D[0] ^ D[5]);
+    }
+    intensity++;
+    SPCR &= ~(1 << SPE);
 }
