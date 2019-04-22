@@ -56,7 +56,8 @@ const uint8_t SevenSegmentASCII[96] = {
 	         _F     |_D         |_A , /* ( */
 	                 _D     |_B |_A , /* ) */
 	         _F                 |_A , /* * */
-	     _G |_F |_E                 , /* + */
+     //	     _G |_F |_E                 , /* + */
+         _G |_F             |_B |_A , /* Celsius */
 	             _E                 , /* , */
 	     _G                         , /* - */
 	 _DP                            , /* . */
@@ -201,12 +202,22 @@ unsigned int get_part() {
 }
 
 void timer_tick() {
+  static q;
   if ((PINB & (1<<BUSY)) == 0) {
-    PORTB ^= 1 << LED;
+    if (playing) {
+      q++;
+    } else {
+      q=0;
+    }
+    // PORTB ^= 1 << LED;
     playing = 1;
+    LED7_init(2);
+    LED7_clearPos();
+    printf("DATE% 4d", q);
   } else {
-    PORTB &=~(1<<LED);
+    // PORTB &=~(1<<LED);
     playing = 0;
+    q=0;
     //LED7test();
   }
 }
@@ -367,7 +378,11 @@ void MAX7219_displayNumber(volatile long number)
     }
 }
 
-void LED7_init() {
+uint8_t LED7_OK=0;
+
+void LED7_init(uint8_t brightness) {
+  if (! LED7_OK) {
+
     // SCK MOSI CS/LOAD/SS
     DDRB |= (1 << PIN_SCK) | (1 << PIN_MOSI) | (1 << PIN_SS);
 
@@ -377,22 +392,29 @@ void LED7_init() {
     MAX7219_writeData(MAX7219_MODE_TEST, OFF);
     MAX7219_writeData(MAX7219_MODE_POWER, ON);
 
+    LED7_OK=1;
+
     // Decode mode to "Font Code-B"
     // MAX7219_writeData(MAX7219_MODE_DECODE, 0xFF);
     MAX7219_writeData(MAX7219_MODE_DECODE, 0x00);
 
     // Scan limit runs from 0.
     MAX7219_writeData(MAX7219_MODE_SCAN_LIMIT, digitsInUse - 1);
-    MAX7219_writeData(MAX7219_MODE_INTENSITY, intensity);
+  };
+
+  if (brightness == 0) brightness=intensity;
+
+  MAX7219_writeData(MAX7219_MODE_INTENSITY, brightness);
 }
 
 void LED7_done() {
+  LED7_OK=0;
   SPCR &= ~(1 << SPE);
 }
 
 int LED7test(void)
 {
-  LED7_init();
+  LED7_init(8);
   for (int i = 0; i<10; i++) {
     _delay_ms(30);
     MAX7219_displayDigits(digitsInUse);
@@ -425,13 +447,18 @@ int LED7_putchar(const char c, struct __file * unused) {
   return 0;
 }
 
+void LED7_clearPos() {
+  LED7_POS = 0;
+}
+
 FILE LED7_output = FDEV_SETUP_STREAM(LED7_putchar, NULL, _FDEV_SETUP_WRITE);
 
 
 void LED7_stdioTest(void) {
-  LED7_init();
+  LED7_init(1);
   MAX7219_clearDisplay0();
-  printf("test5678");
+  printf("t   -50+");
+  // printf("play1234");
   char c=0;
   /* while(1) { */
   /*   for (char d=0; d<8; d++) { */
@@ -445,7 +472,7 @@ void LED7_stdioTest(void) {
 
 
 void LED7_s_test() {
-  LED7_init();
+  LED7_init(20);
   char c=1;
   while(1) {
     for (char d=0; d<8; d++) {
@@ -500,8 +527,11 @@ int main() {
     /* printf("\n"); */
     /* pp=pulses.all; */
     /* _delay_ms(DELAY); */
-    if (! playing)
-      // LED7test();
+    if (! playing) {
+      LED7test();
+    } else {
+
+    }
 
     sleep_mode();
   }
