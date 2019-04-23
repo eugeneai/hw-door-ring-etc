@@ -14,13 +14,18 @@ CLOCK      = 16000000
 AVRDUDE = sudo avrdude -v -c arduino -P `ls /dev/ttyU*` -p $(DEVICE) -b115200
 USBASP = sudo avrdude -v -c usbasp -p $(DEVICE)
 
-CFLAGS= -w -ffreestanding -MD -Werror -Wl,--gc-sections -ffunction-sections -fdata-sections
+PCFDIR=libs/pcf8563
+
+#SRCS=
+OBJS=$(PCFDIR)/i2csoft.o $(PCFDIR)/PCF8563.o
+
+CFLAGS= -w -ffreestanding -MD -Werror -Wl,--gc-sections -ffunction-sections -fdata-sections -I$(PCFDIR)
 LIBS = -Wl,-u,vfprintf -lprintf_flt -lm
 
 
 # //bin/avrdude -C//etc/avrdude.conf -v -patmega2560 -cwiring -P/dev/ttyACM0 -b115200 -D -Uflash:w:/tmp/arduino_build_439882/sketch_mar05a.ino.hex:i
 
-OBJECTS    = $(TARGET).o
+OBJECTS    = $(TARGET).o $(OBJS)
 
 COMPILE = avr-gcc $(CFLAGS) $(LIBS) -Wall -Os -DF_CPU=$(CLOCK) -mmcu=$(DEVICE)
 

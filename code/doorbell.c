@@ -16,6 +16,9 @@
 #include <string.h>
 #include <stdint.h>
 
+#include "i2csoft.h"
+#include "PCF8563.h"
+
 #define LED 5
 #define BUSY 0
 
@@ -190,6 +193,8 @@ unsigned int time=0, ticks = 0;
 
 // unsigned long period=0; // TODO: store it in PROGMEM
 
+uint8_t pcf_show_time();
+
 #define PERIOD 61
 
 unsigned int get_part() {
@@ -213,12 +218,13 @@ void timer_tick() {
     playing = 1;
     LED7_init(2);
     LED7_clearPos();
-    printf("DATE% 4d", q);
+    printf("PLAY% 4d", q);
   } else {
     // PORTB &=~(1<<LED);
     playing = 0;
     q=0;
     //LED7test();
+    pcf_show_time();
   }
 }
 
@@ -248,6 +254,10 @@ void timer_init() {
   //TIFR0
   sei();
 };
+
+
+
+// ---------------------- LED7 DISPLAY ---------------------
 
 // Taken from https://gist.githubusercontent.com/adnbr/2352797/raw/b5e33d85167e6b562a6b4720921a2955eb3cc631/max7219-basic.c
 
@@ -380,6 +390,11 @@ void MAX7219_displayNumber(volatile long number)
 
 uint8_t LED7_OK=0;
 
+uint8_t LED7_POS = 0;
+void LED7_clearPos() {
+  LED7_POS = 0;
+}
+
 void LED7_init(uint8_t brightness) {
   if (! LED7_OK) {
 
@@ -405,11 +420,13 @@ void LED7_init(uint8_t brightness) {
   if (brightness == 0) brightness=intensity;
 
   MAX7219_writeData(MAX7219_MODE_INTENSITY, brightness);
+  LED7_clearPos();
 }
 
 void LED7_done() {
   LED7_OK=0;
   SPCR &= ~(1 << SPE);
+  LED7_clearPos();
 }
 
 int LED7test(void)
@@ -429,7 +446,6 @@ int LED7test(void)
   LED7_done();
 }
 
-
 int LED7_writeChar(const char c, uint8_t digit) {
   char c1 = SevenSegmentASCII[c];
   D[digit] = (uint8_t) c1;
@@ -437,7 +453,6 @@ int LED7_writeChar(const char c, uint8_t digit) {
   return 0;
 }
 
-uint8_t LED7_POS = 0;
 int LED7_putchar(const char c, struct __file * unused) {
   // c &=0x7f; // Remove 7-th bit;
   char c1 = c - 32;
@@ -445,10 +460,6 @@ int LED7_putchar(const char c, struct __file * unused) {
   LED7_writeChar(c1, LED7_POS++);
   // loop_until_bit_is_set(UCSRA, TXC); /* Wait until transmission ready. */
   return 0;
-}
-
-void LED7_clearPos() {
-  LED7_POS = 0;
 }
 
 FILE LED7_output = FDEV_SETUP_STREAM(LED7_putchar, NULL, _FDEV_SETUP_WRITE);
@@ -467,7 +478,7 @@ void LED7_stdioTest(void) {
   /*   c++; */
   /*   _delay_ms(300); */
   /* } */
-  LED7_done();
+  // LED7_done();
 }
 
 
@@ -485,18 +496,75 @@ void LED7_s_test() {
   LED7_done();
 }
 
+/*********************** PCF timer **************************/
+
+uint8_t pcf_timer_init() {
+  return ClockInit(RTC_AIE_ON|RTC_TIE_ON|RTC_TP_ON,
+                   RTC_CLKOUT_1,RTC_TIMER_OFF);
+};
+
+unsigned char datetime[7] = {0x35,0x14,0x05, 1,0, 1,19};
+
+uint8_t pcf_show_time() {
+  int rc=GetDateTime(&datetime);
+  // MAX7219_clearDisplay0();
+  LED7_clearPos();
+  if (rc==TRUE) {
+    printf("%2d", (int)datetime[2]);
+    printf("%2d", (int)datetime[1]);
+    printf("%2d  ", (int)datetime[0]);
+    // printf("%2d ", datetime[0]);
+    // printf("%2d%2d%2d ", datetime[2], datetime[1], datetime[0]);
+  } else {
+    printf("FAIL%2d++",rc);
+  };
+  return rc;
+}
+
+uint8_t pcf_set_time() {
+  return SetDateTime(datetime);
+}
 
 #define STEPS 5000
-#define DELAY 1000
+#define DELAY 5000
+
+void _d() {
+  _delay_ms(DELAY);
+}
 
 int main() {
 
   uart_init();
-  timer_init();
+  LED7_init(8);
 
   // stdout = &uart_output;
   stdout = &LED7_output;
 
+  if (pcf_timer_init()) {
+    LED7_clearPos();
+    printf("TINIOK!!");
+    _d();
+  }
+
+  if (pcf_set_time()) {
+    LED7_clearPos();
+    printf("SET OK!!");
+    _d();
+  }
+
+  if (ClockStart()) {
+    LED7_clearPos();
+    printf("STRTOK!!");
+    _d();
+  }
+
+  if (pcf_show_time()) {
+    LED7_clearPos();
+    printf("SHOWOK!!");
+    _d();
+  }
+
+  // timer_init();
 
   // stdout = &uart_output;
   // stdin  = &uart_input;
@@ -506,17 +574,17 @@ int main() {
   //PORTL = 0x00;
   //DDRD |= 1<<6;
 
-  DDRB |= 1<<LED;
-  DDRB &= ~(1<<BUSY);
-  PORTB &= ~(1<<LED);
+  /* DDRB |= 1<<LED; */
+  /* DDRB &= ~(1<<BUSY); */
+  /* PORTB &= ~(1<<LED); */
 
 
   // unsigned long int pp = 0;
 
-  LED7_stdioTest();
   // LED7_s_test();
 
-  _delay_ms(5000);
+  //LED7_stdioTest();
+  //_d();
 
   // printf("Starting:\n");
 
@@ -527,12 +595,17 @@ int main() {
     /* printf("\n"); */
     /* pp=pulses.all; */
     /* _delay_ms(DELAY); */
-    if (! playing) {
-      LED7test();
-    } else {
 
+    /* if (! playing) { */
+    /*   LED7test(); */
+    /* } else { */
+
+    /* } */
+    if (pcf_show_time()) {
+      LED7_clearPos();
+      // printf("SHOWOK!!");
+      _d();
     }
-
     sleep_mode();
   }
   return 0;
