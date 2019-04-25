@@ -27,6 +27,15 @@ char rc;
 unsigned int playing = 0, intensity=0;
 
 int LED7test(void);
+#define STEPS 5000
+#define DELAY 5000
+
+unsigned char datetime[7] = {0x00,0x22,0x10, 1,0, 1,19};
+
+void _d() {
+  _delay_ms(DELAY);
+}
+
 
 /* void lampOFF() */
 /* { */
@@ -503,33 +512,30 @@ uint8_t pcf_timer_init() {
                    RTC_CLKOUT_1,RTC_TIMER_OFF);
 };
 
-unsigned char datetime[7] = {0x35,0x14,0x05, 1,0, 1,19};
-
 uint8_t pcf_show_time() {
   int rc=GetDateTime(&datetime);
   // MAX7219_clearDisplay0();
+  /* LED7_clearPos(); */
+  /* printf("%2X", (int)datetime[2]); */
+  /* printf("%2X", (int)datetime[1]); */
+  /* printf("%2X  ", (int)datetime[0]); */
+  /* _d(); */
   LED7_clearPos();
   if (rc==TRUE) {
-    printf("%2d", (int)datetime[2]);
-    printf("%2d", (int)datetime[1]);
-    printf("%2d  ", (int)datetime[0]);
+    printf("%02X", (int)datetime[2]);
+    printf("%02X", (int)datetime[1]);
+    printf("%02X  ", (int)datetime[0]);
     // printf("%2d ", datetime[0]);
     // printf("%2d%2d%2d ", datetime[2], datetime[1], datetime[0]);
   } else {
-    printf("FAIL%2d++",rc);
+    printf("FAIL%02X%02X",(int)rc,(int)datetime[0]);
+    _d();
   };
   return rc;
 }
 
 uint8_t pcf_set_time() {
   return SetDateTime(datetime);
-}
-
-#define STEPS 5000
-#define DELAY 5000
-
-void _d() {
-  _delay_ms(DELAY);
 }
 
 int main() {
@@ -543,22 +549,17 @@ int main() {
   if (pcf_timer_init()) {
     LED7_clearPos();
     printf("TINIOK!!");
-    _d();
+    // _d();
   }
 
   if (pcf_set_time()) {
+    ClockStart();
     LED7_clearPos();
     printf("SET OK!!");
     _d();
   }
 
-  if (ClockStart()) {
-    LED7_clearPos();
-    printf("STRTOK!!");
-    _d();
-  }
-
-  if (pcf_show_time()) {
+  if (pcf_show_time()==1) {
     LED7_clearPos();
     printf("SHOWOK!!");
     _d();
@@ -601,12 +602,15 @@ int main() {
     /* } else { */
 
     /* } */
+
+    LED7_clearPos();
     if (pcf_show_time()) {
-      LED7_clearPos();
       // printf("SHOWOK!!");
-      _d();
+      _delay_ms(250);
+    } else {
+      printf("FAIL    ");
     }
-    sleep_mode();
+    // sleep_mode();
   }
   return 0;
 }
